@@ -1,26 +1,17 @@
 <launch>
       <arg name="robot" default="puddles" doc="Which robot to simulate" />
       <arg name="world" default="cutie" doc="Which world to spawn the robot in" />
-      <arg name="gui" default="true"/>
-      <arg name="paused" default="false"/>
+      <arg name="gui" default="true" doc="Whether to display gazebo gui" />
+      <arg name="paused" default="false" doc="Start gazebo paused" />
 
-      <param name="use_sim_time" value="true" />
-
-      <include file="$(find gazebo_ros)/launch/empty_world.launch">
-            <arg name="world_name" value="$(find riptide_gazebo)/worlds/$(arg world).world"/>
-            <arg name="paused" value="$(arg paused)"/>
-            <arg name="use_sim_time" value="true"/>
-            <arg name="gui" value="$(arg gui)"/>
-            <arg name="headless" value="false"/>
-            <arg name="debug" value="false"/>
-            <arg name="verbose" value="true"/>
-      </include>
-
+      <!-- Open world, spawn bot, and convert sensors -->
+      <include file="$(find riptide_gazebo)/launch/world.launch" pass_all_args="true" />
       <include file="$(find riptide_descriptions)/launch/upload_$(arg robot).launch" />
       <include file="$(find riptide_gazebo)/launch/sensor_converters.launch">
             <arg name="namespace" value="$(arg robot)" />
       </include>
 
+      <!-- Start rest of software -->
       <group ns="$(arg robot)">
             <include file="$(find riptide_hardware)/launch/darknet_ros.launch" />
             <include file="$(find riptide_vision)/launch/vision.launch" />
