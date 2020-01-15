@@ -1,18 +1,34 @@
 <launch>
       <arg name="robot" default="puddles" doc="Which robot to simulate" />
-
+      <arg name="world" default="cutie" doc="Which world to spawn the robot in" />
+      <arg name="gui" default="true"/>
+      <arg name="paused" default="false"/>
 
       <param name="use_sim_time" value="true" />
-      <param name="reset_on_time_jump" value="true" />
 
-      <include file="$(find uuv_gazebo_worlds)/launch/lake.launch" />
+      <include file="$(find gazebo_ros)/launch/empty_world.launch">
+            <arg name="world_name" value="$(find riptide_gazebo)/worlds/$(arg world).world"/>
+            <arg name="paused" value="$(arg paused)"/>
+            <arg name="use_sim_time" value="true"/>
+            <arg name="gui" value="$(arg gui)"/>
+            <arg name="headless" value="false"/>
+            <arg name="debug" value="false"/>
+            <arg name="verbose" value="true"/>
+      </include>
+
       <include file="$(find riptide_descriptions)/launch/upload_$(arg robot).launch" />
-      <include file="$(find riptide_gazebo)/launch/sensor_converters.launch" />
+      <include file="$(find riptide_gazebo)/launch/sensor_converters.launch">
+            <arg name="namespace" value="$(arg robot)" />
+      </include>
 
-      <include file="$(find riptide_hardware)/launch/darknet_ros.launch" />
-      <include file="$(find riptide_vision)/launch/vision.launch" />
-      <include file="$(find riptide_controllers)/launch/controllers.launch" />
-      <include file="$(find riptide_autonomy)/launch/actions.launch" />
-      <include file="$(find riptide_teleop)/launch/ps3_controller.launch" />
-      <include file="$(find riptide_navigation)/launch/navigation.launch" />
+      <group ns="$(arg robot)">
+            <include file="$(find riptide_hardware)/launch/darknet_ros.launch" />
+            <include file="$(find riptide_vision)/launch/vision.launch" />
+            <include file="$(find riptide_controllers)/launch/controllers.launch" />
+            <include file="$(find riptide_autonomy)/launch/actions.launch" />
+            <include file="$(find riptide_teleop)/launch/ps3_controller.launch" />
+      </group>
+      <include file="$(find riptide_navigation)/launch/navigation.launch">
+            <arg name="namespace" value="$(arg robot)" />
+      </include>
 </launch>
