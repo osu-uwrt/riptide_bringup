@@ -5,7 +5,11 @@
       <arg name="paused" default="false" doc="Start gazebo paused" />
 
       <!-- Open world, spawn bot, and convert sensors -->
-      <include file="$(find riptide_gazebo)/launch/world.launch" pass_all_args="true" />
+      <include file="$(find riptide_gazebo)/launch/world.launch">
+            <arg name="world" value="$(arg world)" />
+            <arg name="gui" value="$(arg gui)" />
+            <arg name="paused" value="$(arg paused)" />
+      </include>
       <include file="$(find riptide_descriptions)/launch/upload_$(arg robot).launch" />
       <include file="$(find riptide_gazebo)/launch/sensor_converters.launch">
             <arg name="namespace" value="$(arg robot)" />
