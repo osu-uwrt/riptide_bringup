@@ -11,7 +11,7 @@
             <arg name="paused" value="$(arg paused)" />
       </include>
       <include file="$(find riptide_descriptions)/launch/upload_$(arg robot).launch" />
-      <include file="$(find riptide_gazebo)/launch/sensor_converters.launch">
+      <include file="$(find riptide_gazebo)/launch/sensor_remap.launch">
             <arg name="namespace" value="$(arg robot)" />
       </include>
 
