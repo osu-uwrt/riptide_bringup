@@ -22,6 +22,7 @@
             <include file="$(find riptide_controllers)/launch/controllers.launch" />
             <include file="$(find riptide_autonomy)/launch/actions.launch" />
             <include file="$(find riptide_teleop)/launch/ps3_controller.launch" />
+            <include file="$(find riptide_gnc)/launch/gnc_simulation.launch"/>
       </group>
       <include file="$(find riptide_navigation)/launch/navigation.launch">
             <arg name="namespace" value="$(arg robot)" />
