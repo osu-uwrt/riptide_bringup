@@ -1,17 +1,29 @@
 <launch>
-  <include file="$(find riptide_hardware)/launch/hardware.launch" />
-  <include file="$(find riptide_vision)/launch/vision_jetson.launch" />
-  <include file="$(find riptide_controllers)/launch/controllers.launch" />
-  <include file="$(find riptide_autonomy)/launch/actions.launch" />
-  <include file="$(find riptide_teleop)/launch/ps3_controller.launch" />
+      <arg name="robot" default="puddles" doc="Which robot to simulate" />
 
-  <arg name="log" default="false" />
-  <node pkg="rosbag" type="record" name="record_autonomy" 
-        args="record -o /mnt/Data/bringup /rosout_agg /stereo/left/image_hud /debug/pole2" 
-        if="$(arg log)" />
+      <group ns="$(arg robot)">
+            <include file="$(find riptide_hardware)/launch/hardware.launch" />
+            <include file="$(find riptide_vision)/launch/vision_jetson.launch" />
+            <include file="$(find riptide_controllers)/launch/controllers.launch" />
+            <include file="$(find riptide_autonomy)/launch/actions.launch" />
+            <include file="$(find riptide_teleop)/launch/ps3_controller.launch" />
+            <param name="robot_description"
+            command="$(find xacro)/xacro '$(find riptide_descriptions)/robots/$(arg robot).xacro' --inorder
+                    debug:=0
+                    namespace:=$(arg robot)
+                    inertial_reference_frame:=world" />
+      </group>
+      <include file="$(find riptide_navigation)/launch/navigation.launch">
+            <arg name="namespace" value="$(arg robot)" />
+      </include>
 
-  <arg name="collect" default="false" />
-  <node pkg="rosbag" type="record" name="record_autonomy" 
-        args="record -o /mnt/Data/bringup /rosout_agg /darknet_ros/input_image /darknet_ros/image_hud /state/dvl" 
-        if="$(arg collect)" />
+      <arg name="log" default="false" />
+      <node pkg="rosbag" type="record" name="record_autonomy" 
+            args="record -o /mnt/Data/bringup /rosout_agg /stereo/left/image_hud /debug/pole2" 
+            if="$(arg log)" />
+
+      <arg name="collect" default="false" />
+      <node pkg="rosbag" type="record" name="record_autonomy" 
+            args="record -o /mnt/Data/bringup /rosout_agg /darknet_ros/input_image /darknet_ros/image_hud /state/dvl" 
+            if="$(arg collect)" />
 </launch>
