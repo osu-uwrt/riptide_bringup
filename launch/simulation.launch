@@ -10,9 +10,8 @@
             <arg name="gui" value="$(arg gui)" />
             <arg name="paused" value="$(arg paused)" />
       </include>
-      <include file="$(find riptide_descriptions)/launch/upload_$(arg robot).launch" />
-      <include file="$(find riptide_gazebo)/launch/sensor_remap.launch">
-            <arg name="namespace" value="$(arg robot)" />
+      <include file="$(find riptide_gazebo)/launch/spawn_robot.launch">
+            <arg name="robot" value="$(arg robot)" />
       </include>
 
       <!-- Start rest of software -->
