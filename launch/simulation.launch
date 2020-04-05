@@ -16,7 +16,6 @@
 
       <!-- Start rest of software -->
       <group ns="$(arg robot)">
-            <include file="$(find riptide_hardware)/launch/darknet_ros.launch" />
             <include file="$(find riptide_vision)/launch/vision.launch" />
             <include file="$(find riptide_controllers)/launch/controllers.launch" />
             <include file="$(find riptide_teleop)/launch/ps3_controller.launch" />           
