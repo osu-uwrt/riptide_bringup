@@ -18,10 +18,10 @@
       <group ns="$(arg robot)">
             <include file="$(find riptide_vision)/launch/vision.launch" />
             <include file="$(find riptide_controllers)/launch/controllers.launch" />
-            <include file="$(find riptide_teleop)/launch/ps3_controller.launch" />           
+            <include file="$(find riptide_teleop)/launch/ps3_controller.launch" />  
+            <include file="$(find riptide_navigation)/launch/navigation.launch">
+                  <arg name="namespace" value="$(arg robot)" />
+            </include>         
       </group>
       <include file="$(find flexbe_onboard)/launch/behavior_onboard.launch"/>
-      <include file="$(find riptide_navigation)/launch/navigation.launch">
-            <arg name="namespace" value="$(arg robot)" />
-      </include>
 </launch>
