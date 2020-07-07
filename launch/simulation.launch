@@ -1,6 +1,6 @@
 <launch>
       <arg name="robot" default="puddles" doc="Which robot to simulate" />
-      <arg name="world" default="cutie" doc="Which world to spawn the robot in" />
+      <arg name="world" default="2019_finals" doc="Which world to spawn the robot in" />
       <arg name="gui" default="true" doc="Whether to display gazebo gui" />
       <arg name="paused" default="false" doc="Start gazebo paused" />
 
@@ -25,3 +25,4 @@
             <arg name="namespace" value="$(arg robot)" />
       </include>
 </launch>
+ 
