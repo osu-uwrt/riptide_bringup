@@ -14,7 +14,9 @@
             <include file="$(find riptide_vision)/launch/vision.launch">
                   <arg name="vision_computer" value="$(arg vision_computer)" />
             </include>
-            <include file="$(find riptide_controllers)/launch/controllers.launch" />
+            <include file="$(find riptide_controllers)/launch/controllers.launch">
+                  <arg name="robot" value="$(arg robot)" />
+            </include> 
             <include file="$(find riptide_teleop)/launch/ps3_controller.launch" />
             <include file="$(find riptide_navigation)/launch/navigation.launch">
                   <arg name="namespace" value="$(arg robot)" />
