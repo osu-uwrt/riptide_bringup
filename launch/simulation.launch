@@ -17,10 +17,10 @@
       <!-- Start rest of software -->
       <group ns="$(arg robot)">
             <include file="$(find riptide_vision)/launch/vision.launch" />
-            <include file="$(find riptide_controllers)/launch/controllers.launch">
+            <include file="$(find riptide_controllers)/launch/controller.launch">
                   <arg name="robot" value="$(arg robot)" />
             </include> 
-            <include file="$(find riptide_teleop)/launch/ps3_controller.launch" > 
+            <include file="$(find riptide_teleop)/launch/ps3_teleop.launch" > 
                   <arg name="robot" value="$(arg robot)" />
             </include>  
             <include file="$(find riptide_navigation)/launch/navigation.launch">
