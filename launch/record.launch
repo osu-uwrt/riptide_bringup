@@ -1,0 +1,7 @@
+<launch>
+    <include file="$(find riptide_hardware)/launch/underwater_camera.launch" />
+
+    <node pkg="rosbag" type="record" name="record_underwater_camera" 
+            args="record -o /home/blaine/rosbag_underwater 
+            underwater_cam/image_raw/compressed" />
+</launch>

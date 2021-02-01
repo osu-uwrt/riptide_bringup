@@ -1,0 +1,35 @@
+<launch>
+
+    <arg name="robot" default="puddles" doc="Which robot to simulate" />
+    
+    <include file="$(find riptide_bringup)/launch/bringup.launch">
+        <arg name="robot" value="$(arg robot)" />
+    </include>
+         
+          
+    <group ns="puddles" >        
+        <node pkg="rosbag" type="record" name="record_camera" 
+            args="record -o /mnt/Data/rosbag_video 
+            rosout_agg 
+            stereo/left/image_rect_color/compressed 
+            stereo/left/camera_info 
+            stereo/right/image_rect_color/compressed 
+            stereo/right/camera_info" if="$(arg record)" />
+
+        <node pkg="rosbag" type="record" name="record_sensors" 
+            args="record -o /mnt/Data/rosbag_sensors 
+            rosout_agg 
+            dvl/twist
+            dvl_twist
+            dvl_sonar0
+            dvl_sonar1
+            dvl_sonar2
+            dvl_sonar3
+            depth/raw
+            depth/pose
+            imu/data
+            /tf" if="$(arg record)" />
+    </group>
+
+
+</launch>

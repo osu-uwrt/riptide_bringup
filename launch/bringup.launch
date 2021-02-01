@@ -2,7 +2,6 @@
       <machine address="jetson" name="jetson" user="ros" env-loader="~/osu-uwrt/riptide_setup/scripts/ros_scripts/baycat_master.sh"/>
       <machine address="localhost" name="local" />
       <arg name="robot" default="puddles" doc="Which robot to simulate" />
-      <arg name="record" default="false" />
       <!-- Computer in robot must specify in bashrc which computer it wants to run vision code on -->
       <arg name="vision_computer" default="$(optenv VISION_COMPUTER local)" />
 
@@ -28,30 +27,6 @@
                     debug:=0
                     namespace:=$(arg robot)
                     inertial_reference_frame:=world" />
-            
-            <node pkg="rosbag" type="record" name="record_camera" 
-                  args="record -o /home/blaine/rosbag_video 
-                  rosout_agg 
-                  stereo/left/image_rect_color/compressed 
-                  stereo/left/camera_info 
-                  stereo/right/image_rect_color/compressed 
-                  stereo/right/camera_info"/>
-
-            <node pkg="rosbag" type="record" name="record_sensors" 
-                  args="record -o /home/blaine/rosbag_sensors 
-                  rosout_agg 
-                  dvl/twist
-                  dvl_twist
-                  dvl_sonar0
-                  dvl_sonar1
-                  dvl_sonar2
-                  dvl_sonar3
-                  depth/raw
-                  depth/pose
-                  imu/data
-                  /tf"/>
       </group>
       <include file="$(find flexbe_onboard)/launch/behavior_onboard.launch"/>
-
-
 </launch>
