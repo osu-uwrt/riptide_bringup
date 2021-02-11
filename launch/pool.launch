@@ -9,15 +9,15 @@
           
     <group ns="puddles" >        
         <node pkg="rosbag" type="record" name="record_camera" 
-            args="record -o /mnt/Data/rosbag_video 
+            args="record -o $(env HOME)/rosbag_video 
             rosout_agg 
             stereo/left/image_rect_color/compressed 
             stereo/left/camera_info 
             stereo/right/image_rect_color/compressed 
-            stereo/right/camera_info" if="$(arg record)" />
+            stereo/right/camera_info" />
 
         <node pkg="rosbag" type="record" name="record_sensors" 
-            args="record -o /mnt/Data/rosbag_sensors 
+            args="record -o $(env HOME)/rosbag_sensors 
             rosout_agg 
             dvl/twist
             dvl_twist
@@ -28,7 +28,7 @@
             depth/raw
             depth/pose
             imu/data
-            /tf" if="$(arg record)" />
+            /tf" />
     </group>
 
 
