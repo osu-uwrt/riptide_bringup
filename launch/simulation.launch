@@ -23,7 +23,7 @@
             <include file="$(find riptide_teleop)/launch/ps3_teleop.launch" > 
                   <arg name="robot" value="$(arg robot)" />
             </include>  
-            <include file="$(find riptide_navigation)/launch/navigation.launch">
+            <include file="$(find riptide_localization)/launch/navigation.launch">
                   <arg name="namespace" value="$(arg robot)" />
             </include>         
       </group>
