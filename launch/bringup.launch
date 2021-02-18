@@ -2,7 +2,6 @@
       <machine address="jetson" name="jetson" user="ros" env-loader="~/osu-uwrt/riptide_setup/scripts/ros_scripts/baycat_master.sh"/>
       <machine address="localhost" name="local" />
       <arg name="robot" default="puddles" doc="Which robot to simulate" />
-      <arg name="record" default="false" />
       <!-- Computer in robot must specify in bashrc which computer it wants to run vision code on -->
       <arg name="vision_computer" default="$(optenv VISION_COMPUTER local)" />
 
@@ -14,8 +13,12 @@
             <include file="$(find riptide_vision)/launch/vision.launch">
                   <arg name="vision_computer" value="$(arg vision_computer)" />
             </include>
-            <include file="$(find riptide_controllers)/launch/controllers.launch" />
-            <include file="$(find riptide_teleop)/launch/ps3_controller.launch" />
+            <include file="$(find riptide_controllers)/launch/controller.launch">
+                  <arg name="robot" value="$(arg robot)" />
+            </include> 
+            <include file="$(find riptide_teleop)/launch/ps3_teleop.launch">
+                  <arg name="robot" value="$(arg robot)" />
+            </include> 
             <include file="$(find riptide_navigation)/launch/navigation.launch">
                   <arg name="namespace" value="$(arg robot)" />
             </include>
@@ -24,10 +27,6 @@
                     debug:=0
                     namespace:=$(arg robot)
                     inertial_reference_frame:=world" />
-            
-            <node pkg="rosbag" type="record" name="record_autonomy" 
-                  args="record -o /mnt/Data/bringup rosout_agg /tf odometry/filtered darknet_ros/image_hud/compressed" 
-                  if="$(arg record)" />
       </group>
       <include file="$(find flexbe_onboard)/launch/behavior_onboard.launch"/>
 </launch>
