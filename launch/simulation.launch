@@ -28,9 +28,6 @@
             </include>         
       </group>
       <include file="$(find flexbe_onboard)/launch/behavior_onboard.launch"/>
-      <include file="$(find riptide_navigation)/launch/navigation.launch">
-            <arg name="namespace" value="$(arg robot)" />
-      </include>
       <include file="$(find riptide_mapping)/launch/mapping.launch" >
             <arg name="namespace" value="$(arg robot)" />
       </include>
