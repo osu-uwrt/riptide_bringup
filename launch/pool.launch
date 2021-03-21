@@ -29,6 +29,11 @@
             depth/pose
             imu/data
             /tf" />
+
+        <node pkg="rosbag" type="record" name="record_mapping" 
+            args="record -o $(env HOME)/rosbag_mapping
+            rosout_agg 
+            /puddles/mapping/pole" />
     </group>
 
 
