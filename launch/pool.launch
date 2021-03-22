@@ -10,7 +10,7 @@
     <group ns="puddles" >        
         <node pkg="rosbag" type="record" name="record_camera" 
             args="record -o $(env HOME)/rosbag_video 
-            rosout_agg 
+            /rosout_agg 
             stereo/left/image_rect_color/compressed 
             stereo/left/camera_info 
             stereo/right/image_rect_color/compressed 
@@ -18,7 +18,7 @@
 
         <node pkg="rosbag" type="record" name="record_sensors" 
             args="record -o $(env HOME)/rosbag_sensors 
-            rosout_agg 
+            /rosout_agg 
             dvl/twist
             dvl_twist
             dvl_sonar0
@@ -32,8 +32,16 @@
 
         <node pkg="rosbag" type="record" name="record_mapping" 
             args="record -o $(env HOME)/rosbag_mapping
-            rosout_agg 
+            /rosout_agg 
             mapping/pole" />
+        
+        <node pkg="rosbag" type="record" name="record_diagnostics" 
+            args="record -o $(env HOME)/rosbag_diagnostics 
+            /rosout_agg 
+            /diagnostics
+            /diagnostics_agg
+            /diagnostics_toplevel_state
+            " />
     </group>
 
 
