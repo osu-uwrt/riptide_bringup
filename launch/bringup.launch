@@ -3,7 +3,7 @@
       <machine address="localhost" name="local" />
       <arg name="robot" default="puddles" doc="Which robot to simulate" />
       <!-- Computer in robot must specify in bashrc which computer it wants to run vision code on -->
-      <arg name="vision_computer" default="$(optenv VISION_COMPUTER local)" />
+      <arg name="vision_computer" default="local" />
 
       <group ns="$(arg robot)">
             <include file="$(find riptide_hardware)/launch/hardware.launch">
