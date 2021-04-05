@@ -6,6 +6,12 @@
       <arg name="vision_computer" default="local" />
 
       <group ns="$(arg robot)">
+            <param name="robot_description"
+            command="$(find xacro)/xacro '$(find riptide_descriptions)/robots/$(arg robot).xacro' --inorder
+                    debug:=0
+                    namespace:=$(arg robot)
+                    inertial_reference_frame:=world" />
+
             <include file="$(find riptide_hardware)/launch/hardware.launch">
                   <arg name="robot" value="$(arg robot)" />
                   <arg name="vision_computer" value="$(arg vision_computer)" />
@@ -25,11 +31,6 @@
             <include file="$(find riptide_mapping)/launch/mapping.launch">
                   <arg name="namespace" value="$(arg robot)" />
             </include>
-            <param name="robot_description"
-            command="$(find xacro)/xacro '$(find riptide_descriptions)/robots/$(arg robot).xacro' --inorder
-                    debug:=0
-                    namespace:=$(arg robot)
-                    inertial_reference_frame:=world" />
       </group>
       <include file="$(find flexbe_onboard)/launch/behavior_onboard.launch"/>
 </launch>
