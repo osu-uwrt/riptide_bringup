@@ -25,7 +25,13 @@
             </include>  
             <include file="$(find riptide_localization)/launch/navigation.launch">
                   <arg name="namespace" value="$(arg robot)" />
-            </include>         
+            </include>
+            <include file="$(find riptide_mapping)/launch/mapping.launch">
+                  <arg name="namespace" value="$(arg robot)" />
+            </include>        
+            <include file="$(find riptide_hardware)/launch/diagnostics.launch">
+                  <arg name="robot" value="$(arg robot)" />
+            </include>
       </group>
       <include file="$(find flexbe_onboard)/launch/behavior_onboard.launch"/>
 </launch>
