@@ -34,4 +34,5 @@
             </include>
       </group>
       <include file="$(find flexbe_onboard)/launch/behavior_onboard.launch"/>
+      <include file="$(find riptide_navigation)/launch/move_group.launch"/>
 </launch>
