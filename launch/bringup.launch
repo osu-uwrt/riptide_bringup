@@ -11,12 +11,9 @@
                     debug:=0
                     namespace:=$(arg robot)
                     inertial_reference_frame:=world" />
-
+                    
             <include file="$(find riptide_hardware)/launch/hardware.launch">
                   <arg name="robot" value="$(arg robot)" />
-                  <arg name="vision_computer" value="$(arg vision_computer)" />
-            </include>
-            <include file="$(find riptide_vision)/launch/vision.launch">
                   <arg name="vision_computer" value="$(arg vision_computer)" />
             </include>
             <include file="$(find riptide_controllers)/launch/controller.launch">
