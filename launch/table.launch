@@ -1,0 +1,33 @@
+<launch>
+      <machine address="jetson" name="jetson" user="ros" env-loader="~/osu-uwrt/riptide_setup/scripts/ros_scripts/baycat_master.sh"/>
+      <machine address="localhost" name="local" />
+      <arg name="robot" default="puddles" doc="Which robot to simulate" />
+      <!-- Computer in robot must specify in bashrc which computer it wants to run vision code on -->
+      <arg name="vision_computer" default="local" />
+
+      <group ns="$(arg robot)">
+            <param name="robot_description"
+            command="$(find xacro)/xacro '$(find riptide_descriptions)/robots/$(arg robot).xacro'
+                    debug:=0
+                    namespace:=$(arg robot)
+                    inertial_reference_frame:=world" />
+                    
+            <include file="$(find riptide_hardware)/launch/table_hardware.launch">
+                  <arg name="robot" value="$(arg robot)" />
+                  <arg name="vision_computer" value="$(arg vision_computer)" />
+            </include>
+            <include file="$(find riptide_controllers)/launch/controller.launch">
+                  <arg name="robot" value="$(arg robot)" />
+            </include> 
+            <include file="$(find riptide_teleop)/launch/ps3_teleop.launch">
+                  <arg name="robot" value="$(arg robot)" />
+            </include> 
+            <include file="$(find riptide_localization)/launch/navigation.launch">
+                  <arg name="namespace" value="$(arg robot)" />
+            </include>
+            <include file="$(find riptide_mapping)/launch/mapping.launch">
+                  <arg name="namespace" value="$(arg robot)" />
+            </include>
+      </group>
+      <include file="$(find flexbe_onboard)/launch/behavior_onboard.launch"/>
+</launch>
