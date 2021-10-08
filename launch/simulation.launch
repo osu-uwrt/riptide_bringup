@@ -1,21 +1,16 @@
 <launch>
       <arg name="robot" default="puddles" doc="Which robot to simulate" />
-      <arg name="world" default="cutie" doc="Which world to spawn the robot in" />
-      <arg name="gui" default="true" doc="Whether to display gazebo gui" />
-      <arg name="paused" default="false" doc="Start gazebo paused" />
 
-      <!-- Open world, spawn bot, and convert sensors -->
-      <include file="$(find riptide_gazebo)/launch/world.launch">
-            <arg name="world" value="$(arg world)" />
-            <arg name="gui" value="$(arg gui)" />
-            <arg name="paused" value="$(arg paused)" />
-      </include>
-      <include file="$(find riptide_gazebo)/launch/spawn_robot.launch">
-            <arg name="robot" value="$(arg robot)" />
-      </include>
-
+      <!-- Launch Simulator -->
+      <node name="simulator" pkg="riptide_bringup" type="launch_sim.sh" />
+            
       <!-- Start rest of software -->
       <group ns="$(arg robot)">
+            <param name="robot_description"
+            command="$(find xacro)/xacro '$(find riptide_descriptions)/robots/$(arg robot).xacro'
+                    debug:=0
+                    namespace:=$(arg robot)
+                    inertial_reference_frame:=world" />
             <include file="$(find riptide_controllers)/launch/controller.launch">
                   <arg name="robot" value="$(arg robot)" />
             </include> 
