@@ -3,7 +3,11 @@
 
       <!-- Launch Simulator -->
       <node name="simulator" pkg="riptide_bringup" type="launch_sim.sh" />
-            
+
+      <!-- TCP connection -->
+      <rosparam file="$(find ros_tcp_endpoint)/config/params.yaml" command="load"/>
+      <node name="server_endpoint" pkg="ros_tcp_endpoint" type="default_server_endpoint.py" args="--wait" output="screen" respawn="true" />
+      
       <!-- Start rest of software -->
       <group ns="$(arg robot)">
             <param name="robot_description"
@@ -11,6 +15,7 @@
                     debug:=0
                     namespace:=$(arg robot)
                     inertial_reference_frame:=world" />
+            
             <include file="$(find riptide_controllers)/launch/controller.launch">
                   <arg name="robot" value="$(arg robot)" />
             </include> 
