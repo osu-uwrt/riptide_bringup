@@ -1,0 +1,16 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/saldridge/osu-uwrt/riptide_software/devel/lib/python3/dist-packages",
+        "/home/saldridge/osu-uwrt/dependencies/install/lib/python3/dist-packages",
+        "/home/saldridge/osu-uwrt/dependencies/MYNT/wrappers/ros/devel/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages",
+        "/home/saldridge/osu-uwrt/dependencies/devel/lib/python3/dist-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/saldridge/osu-uwrt/riptide_software/devel/lib/python3/dist-packages",
+        "/home/saldridge/osu-uwrt/dependencies/install/lib/python3/dist-packages",
+        "/home/saldridge/osu-uwrt/dependencies/MYNT/wrappers/ros/devel/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages",
+        "/home/saldridge/osu-uwrt/dependencies/devel/lib/python3/dist-packages"
+    ]
+}
