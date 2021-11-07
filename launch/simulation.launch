@@ -1,5 +1,5 @@
 <launch>
-      <arg name="robot" default="puddles" doc="Which robot to simulate" />
+      <arg name="robot" default="tempest" doc="Which robot to simulate" />
       <arg name="world" default="cutie" doc="Which world to spawn the robot in" />
       <arg name="gui" default="true" doc="Whether to display gazebo gui" />
       <arg name="paused" default="false" doc="Start gazebo paused" />
@@ -31,6 +31,9 @@
             <include file="$(find riptide_hardware)/launch/diagnostics.launch">
                   <arg name="robot" value="$(arg robot)" />
             </include>
+            <include file="$(find riptide_vision)/launch/dope.launch">
+                  <arg name="robot" value="$(arg robot)" />
+            </include>
+
       </group>
-      <include file="$(find flexbe_onboard)/launch/behavior_onboard.launch"/>
 </launch>
