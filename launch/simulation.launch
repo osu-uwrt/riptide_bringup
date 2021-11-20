@@ -14,6 +14,8 @@
             <arg name="robot" value="$(arg robot)" />
       </include>
 
+      <remap from="/octomap_server/cloud_ins" to="$(arg robot)/stereo/points2"/>
+
       <!-- Start rest of software -->
       <group ns="$(arg robot)">
             <include file="$(find riptide_controllers)/launch/controller.launch">
@@ -31,6 +33,6 @@
             <include file="$(find riptide_hardware)/launch/diagnostics.launch">
                   <arg name="robot" value="$(arg robot)" />
             </include>
+            <include file="/opt/ros/noetic/share/octomap_server/launch/octomap_mapping.launch"/>
       </group>
-      <include file="$(find flexbe_onboard)/launch/behavior_onboard.launch"/>
 </launch>

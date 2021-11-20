@@ -29,5 +29,4 @@
                   <arg name="namespace" value="$(arg robot)" />
             </include>
       </group>
-      <include file="$(find flexbe_onboard)/launch/behavior_onboard.launch"/>
 </launch>
