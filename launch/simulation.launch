@@ -1,5 +1,5 @@
 <launch>
-      <arg name="robot" default="puddles" doc="Which robot to simulate" />
+      <arg name="robot" default="tempest" doc="Which robot to simulate" />
       <arg name="world" default="cutie" doc="Which world to spawn the robot in" />
       <arg name="gui" default="true" doc="Whether to display gazebo gui" />
       <arg name="paused" default="false" doc="Start gazebo paused" />
@@ -34,5 +34,10 @@
                   <arg name="robot" value="$(arg robot)" />
             </include>
             <include file="/opt/ros/noetic/share/octomap_server/launch/octomap_mapping.launch"/>
+            
+            <include file="$(find riptide_vision)/launch/dope.launch">
+                  <arg name="robot" value="$(arg robot)" />
+            </include>
+
       </group>
 </launch>
