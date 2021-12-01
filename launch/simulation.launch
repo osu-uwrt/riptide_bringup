@@ -35,5 +35,9 @@
                   <arg name="robot" value="$(arg robot)" />
             </include>
 
+            <include file="$(find riptide_autonomy)/launch/actions.launch">
+                  <arg name="robot" value="$(arg robot)" />
+            </include>
+
       </group>
 </launch>
