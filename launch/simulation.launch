@@ -1,5 +1,5 @@
 <launch>
-      <arg name="robot" default="tempest" doc="Which robot to simulate" />
+      <arg name="robot" default="puddles" doc="Which robot to simulate" />
       <arg name="world" default="cutie" doc="Which world to spawn the robot in" />
       <arg name="gui" default="true" doc="Whether to display gazebo gui" />
       <arg name="paused" default="false" doc="Start gazebo paused" />
@@ -38,6 +38,6 @@
             <include file="$(find riptide_autonomy)/launch/actions.launch">
                   <arg name="robot" value="$(arg robot)" />
             </include>
-
+            <node name="tf2_server" pkg="tf2_ros" type="buffer_server" output="screen"/>
       </group>
 </launch>
