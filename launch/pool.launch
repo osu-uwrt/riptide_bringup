@@ -33,7 +33,14 @@
         <node pkg="rosbag" type="record" name="record_mapping" 
             args="record -o $(env HOME)/rosbag_mapping
             /rosout_agg 
-            mapping/pole" />
+            mapping/cutie
+            mapping/tommy
+            mapping/gman
+            mapping/bootlegger
+            mapping/badge
+            mapping/gate
+            dope/detected_objects
+            /tf" />
         
         <node pkg="rosbag" type="record" name="record_diagnostics" 
             args="record -o $(env HOME)/rosbag_diagnostics 
