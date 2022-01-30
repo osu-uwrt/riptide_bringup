@@ -16,6 +16,10 @@ launch_files = [
         'launch',
         'hardware.launch.py'),
     os.path.join(
+        get_package_share_directory('riptide_hardware2'),
+        'launch',
+        'diagnostics.launch.py'),
+    os.path.join(
         get_package_share_directory('riptide_controllers2'),
         'launch',
         'controller.launch.py'),
