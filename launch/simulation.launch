@@ -16,12 +16,28 @@
 
       <!-- Start rest of software -->
       <group ns="$(arg robot)">
-            <include file="$(find riptide_vision)/launch/vision.launch" />
-            <include file="$(find riptide_controllers)/launch/controllers.launch" />
-            <include file="$(find riptide_teleop)/launch/ps3_controller.launch" />           
+            <include file="$(find riptide_controllers)/launch/controller.launch">
+                  <arg name="robot" value="$(arg robot)" />
+            </include> 
+            <include file="$(find riptide_teleop)/launch/ps3_teleop.launch" > 
+                  <arg name="robot" value="$(arg robot)" />
+            </include>  
+            <include file="$(find riptide_localization)/launch/navigation.launch">
+                  <arg name="namespace" value="$(arg robot)" />
+            </include>
+            <include file="$(find riptide_mapping)/launch/mapping.launch">
+                  <arg name="namespace" value="$(arg robot)" />
+            </include>        
+            <include file="$(find riptide_hardware)/launch/diagnostics.launch">
+                  <arg name="robot" value="$(arg robot)" />
+            </include>
+            <include file="$(find riptide_vision)/launch/dope.launch">
+                  <arg name="robot" value="$(arg robot)" />
+            </include>
+
+            <include file="$(find riptide_autonomy)/launch/actions.launch">
+                  <arg name="robot" value="$(arg robot)" />
+            </include>
+            <node name="tf2_server" pkg="tf2_ros" type="buffer_server" output="screen"/>
       </group>
-      <include file="$(find flexbe_onboard)/launch/behavior_onboard.launch"/>
-      <include file="$(find riptide_navigation)/launch/navigation.launch">
-            <arg name="namespace" value="$(arg robot)" />
-      </include>
 </launch>
