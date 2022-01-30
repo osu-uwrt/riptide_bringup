@@ -6,20 +6,4 @@
 
     <node pkg="rosbag" type="play" name="player" output="screen" args="--clock $(env HOME)/rosbag_video_$(arg timestamp).bag $(env HOME)/rosbag_sensors_$(arg timestamp).bag"/>
 
-    <group ns="$(arg robot)">
-        <param name="robot_description"
-                command="$(find xacro)/xacro '$(find riptide_descriptions)/robots/$(arg robot).xacro'
-                        debug:=0
-                        namespace:=$(arg robot)
-                        inertial_reference_frame:=world" />
-
-        <!-- A joint state publisher -->
-        <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" output="screen" />
-
-        <!-- Publish robot model for Sensor locations -->
-        <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen">
-        
-        </node>
-    </group>
-
 </launch>

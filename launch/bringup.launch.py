@@ -9,8 +9,10 @@ from launch_ros.actions import PushRosNamespace
 from launch.substitutions import LaunchConfiguration as LC
 import os
 
-# all of the launch files to start
-launch_files = [
+default_robot_name = "tempest"
+
+# all of the robot namespaced launch files to start
+ns_launch_files = [
     os.path.join(
         get_package_share_directory('riptide_hardware2'),
         'launch',
@@ -42,14 +44,14 @@ def generate_launch_description():
     robot_name = LC('robot')
 
     # setup a list to collect launch descriptions
-    descrips = []
+    ns_descrips = []
 
     # setup a namespace to put everything in
-    descrips.append(PushRosNamespace(robot_name))
+    ns_descrips.append(PushRosNamespace(robot_name))
 
     # iterate the list of launch files we were given to start
-    for launch_file in launch_files:
-        descrips.append(
+    for launch_file in ns_launch_files:
+        ns_descrips.append(
             IncludeLaunchDescription(
                 AnyLaunchDescriptionSource(launch_file),
                 launch_arguments=[
@@ -61,6 +63,6 @@ def generate_launch_description():
 
     # create the launch description 
     return LaunchDescription([
-        DeclareLaunchArgument('robot', default_value='tempest', description='name of the robot to spawn'),
-        GroupAction(descrips)
+        DeclareLaunchArgument('robot', default_value=default_robot_name, description='name of the robot to spawn'),
+        GroupAction(ns_descrips),
     ])
