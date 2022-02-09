@@ -9,7 +9,7 @@ from launch_ros.actions import PushRosNamespace
 from launch.substitutions import LaunchConfiguration as LC
 import os
 
-default_robot_name = "tempest"
+default_robot_name = "puddles"
 
 # all of the robot namespaced launch files to start
 ns_launch_files = [
@@ -22,6 +22,12 @@ ns_launch_files = [
         'launch',
         'controller.launch.py'),
     os.path.join(
+        get_package_share_directory('riptide_localization2'),
+        'launch',
+        'navigation.launch.py'),
+]
+'''
+    os.path.join(
         get_package_share_directory('riptide_teleop2'),
         'launch',
         'ps3_teleop.launch.py'),
@@ -30,14 +36,10 @@ ns_launch_files = [
         'launch',
         'navigation.launch.py'),
     os.path.join(
-        get_package_share_directory('riptide_navigation2'),
-        'launch',
-        'mapping.launch.py'),
-    os.path.join(
         get_package_share_directory('riptide_autonomy2'),
         'launch',
         'actions.launch.py')
-]
+]'''
 
 def generate_launch_description():
     # read the parameter for robot name
