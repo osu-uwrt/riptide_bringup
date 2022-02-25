@@ -9,7 +9,7 @@ from launch_ros.actions import PushRosNamespace
 from launch.substitutions import LaunchConfiguration as LC
 import os
 
-default_robot_name = "puddles"
+default_robot_name = "tempest"
 
 # all of the robot namespaced launch files to start
 ns_launch_files = [
@@ -21,10 +21,10 @@ ns_launch_files = [
         get_package_share_directory('riptide_teleop2'),
         'launch',
         'ps3_teleop.launch.py'),
-    os.path.join(
-        get_package_share_directory('riptide_localization2'),
-        'launch',
-        'navigation.launch.py'),
+    # os.path.join(
+    #     get_package_share_directory('riptide_localization2'),
+    #     'launch',
+    #     'navigation.launch.py'),
 ]
 
 '''
@@ -50,8 +50,8 @@ ns_launch_files = [
         'actions.launch.py')
 '''
 
-riptide_gazebo = os.path.join(
-    get_package_share_directory('riptide_gazebo2'),
+riptide_ignition = os.path.join(
+    get_package_share_directory('riptide_ignition2'),
     'launch',)
 
 
@@ -82,18 +82,4 @@ def generate_launch_description():
         DeclareLaunchArgument('robot', default_value=default_robot_name, description='name of the robot to spawn'),
         
         GroupAction(ns_descrips),
-
-        IncludeLaunchDescription(
-                AnyLaunchDescriptionSource(
-                    os.path.join(riptide_gazebo, 'world.launch.py')
-                ),
-        ),
-
-        IncludeLaunchDescription(
-                AnyLaunchDescriptionSource(
-                    os.path.join(riptide_gazebo, 'spawn_robot.launch.py')),
-                launch_arguments=[
-                    ('robot', robot_name),
-                ]
-            )
     ])
