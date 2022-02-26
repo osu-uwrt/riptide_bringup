@@ -50,9 +50,9 @@ ns_launch_files = [
         'actions.launch.py')
 '''
 
-riptide_ignition = os.path.join(
-    get_package_share_directory('riptide_ignition2'),
-    'launch',)
+#riptide_ignition = os.path.join(
+#    get_package_share_directory('riptide_ignition2'),
+#    'launch',)
 
 
 def generate_launch_description():
