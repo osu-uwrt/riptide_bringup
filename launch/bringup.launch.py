@@ -9,7 +9,7 @@ from launch_ros.actions import PushRosNamespace
 from launch.substitutions import LaunchConfiguration as LC
 import os
 
-default_robot_name = "puddles"
+default_robot_name = "tempest"
 
 # all of the robot namespaced launch files to start
 ns_launch_files = [
