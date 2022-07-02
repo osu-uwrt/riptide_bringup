@@ -25,12 +25,15 @@ ns_launch_files = [
         get_package_share_directory('riptide_localization2'),
         'launch',
         'navigation.launch.py'),
-]
-'''
     os.path.join(
         get_package_share_directory('riptide_teleop2'),
         'launch',
         'ps3_teleop.launch.py'),
+    os.path.join(
+        get_package_share_directory('riptide_mapping2'),
+        'launch',
+        'mapping.launch.py'),]
+'''
     os.path.join(
         get_package_share_directory('riptide_navigation2'),
         'launch',
