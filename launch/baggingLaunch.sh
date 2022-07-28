@@ -1,4 +1,4 @@
-#acceptable choices vision, sensors, mapping, diagnostics
+#acceptable choices vision, sensors, mapping, diagnostics, all, test
 #./baggingLaunch.sh [bagging choice]
 
 #To run must install
@@ -8,13 +8,17 @@
     #ros-galactic-rosbag2-converter-default-plugins
 
 echo "Starting Ros2 Bagging Node!!"
+date=$(date +'%m_%d_%Y__%H_%M_%S')
+
 
 case $1 in 
     #bag vision
     "vision") 
         echo "Bagging Vision!"
+        saveName="vision__$date"
+
         #launch the vision bagging
-        ros2 bag record -o vision \
+        ros2 bag record -o $saveName \
             /rosout_agg \
             stereo/left/image_raw/compressed \
             stereo/left/camera_info \
@@ -25,7 +29,10 @@ case $1 in
     #bag sensors
     "sensors")
         echo "Bagging Sensors!"
-        ros2 bag record -o sensors \
+        saveName="sensors__$date"
+
+        #launch sensor bagging
+        ros2 bag record -o $saveName \
             /rosout_agg \
             dvl/twist \
             dvl_twist \
@@ -42,7 +49,10 @@ case $1 in
     #bag mapping
     "mapping")
         echo "Bagging Mapping"
-        ros2 bag record -o mapping \
+        saveName="mapping__$date"
+
+        #launch mapping bagging
+        ros2 bag record -o $saveName \
             /rosout_agg \
             mapping/cutie \
             mapping/tommy \
@@ -57,10 +67,31 @@ case $1 in
     #bagging diagnostics
     "diagnostics")
         echo "Bagging Diagnostics"
-        ros2 bag record -o diagnostics \
+        saveName="diagnostics__$date"
+        
+        #launch diagnostics bagging
+        ros2 bag record -o $saveName \
             /rosout_agg \
             /diagnostics \
             /diagnostics_agg \
             /diagnostics_toplevel_state \
         ;;
+
+    #bag all topics - not recommended
+    "all")
+        echo "Bagging All Topics - Prepare your hardrive/SSD!!!!"
+        saveName="all__$date"
+
+        #launch all bagging
+        ros2 bag record -o $saveName -a
+    ;;
+
+    #doesn't bag anything - just for testing ;)
+    "test")
+        echo "Testing Mode!"
+        date=$(date +'%m_%d_%Y__%H_%M_%S')
+        echo "test$date"
+    ;;
+
+
 esac
