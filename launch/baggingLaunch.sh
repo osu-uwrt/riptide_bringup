@@ -14,7 +14,7 @@ case $1 in
     "vision") 
         echo "Bagging Vision!"
         #launch the vision bagging
-        ros2 bag record -o \
+        ros2 bag record -o vision \
             /rosout_agg \
             stereo/left/image_raw/compressed \
             stereo/left/camera_info \
@@ -25,7 +25,7 @@ case $1 in
     #bag sensors
     "sensors")
         echo "Bagging Sensors!"
-        ros2 bag record -o \
+        ros2 bag record -o sensors \
             /rosout_agg \
             dvl/twist \
             dvl_twist \
@@ -42,7 +42,7 @@ case $1 in
     #bag mapping
     "mapping")
         echo "Bagging Mapping"
-        ros2 bag record -o \
+        ros2 bag record -o mapping \
             /rosout_agg \
             mapping/cutie \
             mapping/tommy \
@@ -57,7 +57,7 @@ case $1 in
     #bagging diagnostics
     "diagnostics")
         echo "Bagging Diagnostics"
-        ros2 bag record -o \
+        ros2 bag record -o diagnostics \
             /rosout_agg \
             /diagnostics \
             /diagnostics_agg \
