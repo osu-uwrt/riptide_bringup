@@ -1,4 +1,4 @@
-#acceptable choices vision, sensors, mapping, diagnostics, all, test
+#acceptable choices vision, sensors, mapping, diagnostics, competition, all, test
 #./baggingLaunch.sh [bagging choice]
 
 #To run must install
@@ -18,10 +18,10 @@ case $1 in
     #bag vision
     "vision") 
         echo "Bagging Vision!"
-        saveName="vision__$date"
+        saveName="../Bags/vision__$date"
 
         #launch the vision bagging
-        ros2 bag record --include-hidden-topics -o $saveName \
+        ros2 bag record --include-hidden-topics --max-bag-duration 3 -o $saveName \
             /rosout_agg \
             stereo/left/image_raw/compressed \
             stereo/left/camera_info \
@@ -33,10 +33,10 @@ case $1 in
     #bag sensors
     "sensors")
         echo "Bagging Sensors!"
-        saveName="sensors__$date"
+        saveName="../Bags/sensors__$date"
 
         #launch sensor bagging
-        ros2 bag record --include-hidden-topics -o $saveName \
+        ros2 bag record --include-hidden-topics -d 3 -o $saveName \
             /rosout_agg \
             dvl/twist \
             dvl_twist \
@@ -50,15 +50,38 @@ case $1 in
             /tf \
             /tempest/state/electrical
 
-        ;;   
+        ;; 
+
+    #  competition
+    "competition")
+        echo "Bagging the competition profile"
+        saveName="../Bags/competition__$date"
+        ros2 bag record --include-hidden-topics --max-bag-duration 3 -o $saveName \
+            /rosout_agg \
+            stereo/left/image_raw/compressed \
+            stereo/left/camera_info \
+            stereo/right/image_raw/compressed \
+            stereo/right/camera_info \
+            /tempest/state/electrical
+            dvl/twist \
+            dvl_twist \
+            dvl_sonar0 \
+            dvl_sonar1 \
+            dvl_sonar2 \
+            vl_sonar3 \
+            depth/raw \
+            depth/pose \
+            imu/data \
+            /tf
+        ;;
 
     #bag mapping
     "mapping")
         echo "Bagging Mapping"
-        saveName="mapping__$date"
+        saveName="../Bags/mapping__$date"
 
         #launch mapping bagging
-        ros2 bag record --include-hidden-topics -o $saveName \
+        ros2 bag record --include-hidden-topics -d 3 -o $saveName \
             /rosout_agg \
             mapping/cutie \
             mapping/tommy \
@@ -75,10 +98,10 @@ case $1 in
     #bagging diagnostics
     "diagnostics")
         echo "Bagging Diagnostics"
-        saveName="diagnostics__$date"
+        saveName="../Bags/diagnostics__$date"
         
         #launch diagnostics bagging
-        ros2 bag record --include-hidden-topics -o $saveName \
+        ros2 bag record -d 3 --include-hidden-topics -o $saveName \
             /rosout_agg \
             /diagnostics \
             /diagnostics_agg \
@@ -90,11 +113,17 @@ case $1 in
     #bag all topics - not recommended
     "all")
         echo "Bagging All Topics - Prepare your hardrive/SSD!!!!"
-        saveName="all__$date"
+        saveName="../Bags/all__$date"
 
         #launch all bagging
-        ros2 bag record --include-hidden-topics -o $saveName -a
+        ros2 bag record --include-hidden-topics -d 3 -o $saveName -a
     ;;
+
+    #catch all
+    "")
+        echo "No topic entered! Please enter either vision, diagnostics, mapping, sensors or all."
+        ;;
+
 
     #doesn't bag anything - just for testing ;)
     "test")
@@ -102,6 +131,5 @@ case $1 in
         date=$(date +'%m_%d_%Y__%H_%M_%S')
         echo "test$date"
     ;;
-
 
 esac
