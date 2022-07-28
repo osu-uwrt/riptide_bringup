@@ -1,5 +1,4 @@
 #acceptable choices vision, sensors, mapping, diagnostics, all, test
-#to spit out a list of topics type topics
 #./baggingLaunch.sh [bagging choice]
 
 #To run must install
@@ -7,6 +6,9 @@
     #ros-galactic-rosbag2-storage-default-plugins
 #And maybe install - if it works
     #ros-galactic-rosbag2-converter-default-plugins
+
+#You can ignore the firmware error - probably
+#All bags record voltage!
 
 echo "Starting Ros2 Bagging Node!!"
 date=$(date +'%m_%d_%Y__%H_%M_%S')
