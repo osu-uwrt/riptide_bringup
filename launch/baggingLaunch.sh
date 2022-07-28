@@ -1,4 +1,5 @@
 #acceptable choices vision, sensors, mapping, diagnostics, all, test
+#to spit out a list of topics type topics
 #./baggingLaunch.sh [bagging choice]
 
 #To run must install
@@ -18,12 +19,13 @@ case $1 in
         saveName="vision__$date"
 
         #launch the vision bagging
-        ros2 bag record -o $saveName \
+        ros2 bag record --include-hidden-topics -o $saveName \
             /rosout_agg \
             stereo/left/image_raw/compressed \
             stereo/left/camera_info \
             stereo/right/image_raw/compressed \
             stereo/right/camera_info \
+            /tempest/state/electrical
         ;;
 
     #bag sensors
@@ -32,7 +34,7 @@ case $1 in
         saveName="sensors__$date"
 
         #launch sensor bagging
-        ros2 bag record -o $saveName \
+        ros2 bag record --include-hidden-topics -o $saveName \
             /rosout_agg \
             dvl/twist \
             dvl_twist \
@@ -43,7 +45,9 @@ case $1 in
             depth/raw \
             depth/pose \
             imu/data \
-            /tf
+            /tf \
+            /tempest/state/electrical
+
         ;;   
 
     #bag mapping
@@ -52,7 +56,7 @@ case $1 in
         saveName="mapping__$date"
 
         #launch mapping bagging
-        ros2 bag record -o $saveName \
+        ros2 bag record --include-hidden-topics -o $saveName \
             /rosout_agg \
             mapping/cutie \
             mapping/tommy \
@@ -61,7 +65,9 @@ case $1 in
             mapping/badge \
             mapping/gate \
             dope/detected_objects \
-            /tf
+            /tf \
+            /tempest/state/electrical
+
         ;;
 
     #bagging diagnostics
@@ -70,11 +76,13 @@ case $1 in
         saveName="diagnostics__$date"
         
         #launch diagnostics bagging
-        ros2 bag record -o $saveName \
+        ros2 bag record --include-hidden-topics -o $saveName \
             /rosout_agg \
             /diagnostics \
             /diagnostics_agg \
             /diagnostics_toplevel_state \
+            /tempest/state/electrical
+
         ;;
 
     #bag all topics - not recommended
@@ -83,7 +91,7 @@ case $1 in
         saveName="all__$date"
 
         #launch all bagging
-        ros2 bag record -o $saveName -a
+        ros2 bag record --include-hidden-topics -o $saveName -a
     ;;
 
     #doesn't bag anything - just for testing ;)
