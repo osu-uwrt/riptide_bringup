@@ -21,7 +21,7 @@ case $1 in
         saveName="../Bags/vision__$date"
 
         #launch the vision bagging
-        ros2 bag record --include-hidden-topics --max-bag-duration 3 -o $saveName \
+        ros2 bag record --include-hidden-topics --max-bag-duration 15 -o $saveName \
             /rosout_agg \
             stereo/left/image_raw/compressed \
             stereo/left/camera_info \
@@ -36,7 +36,7 @@ case $1 in
         saveName="../Bags/sensors__$date"
 
         #launch sensor bagging
-        ros2 bag record --include-hidden-topics -d 3 -o $saveName \
+        ros2 bag record --include-hidden-topics -d 15 -o $saveName \
             /rosout_agg \
             /tempest/dvl/twist \
             /tempest/dvl/status \
@@ -56,7 +56,7 @@ case $1 in
     "competition")
         echo "Bagging the competition profile"
         saveName="../Bags/competition__$date"
-        ros2 bag record --include-hidden-topics --max-bag-duration 3 -o $saveName \
+        ros2 bag record --include-hidden-topics --max-bag-duration 15 -o $saveName \
             /rosout_agg \
             odometry/filtered \
             stereo/left_raw/image_raw \
@@ -79,15 +79,21 @@ case $1 in
         saveName="../Bags/mapping__$date"
 
         #launch mapping bagging
-        ros2 bag record --include-hidden-topics -d 3 -o $saveName \
+        ros2 bag record --include-hidden-topics -d 15 -o $saveName \
             /rosout_agg \
-            mapping/cutie \
-            mapping/tommy \
-            mapping/gman \
-            mapping/bootlegger \
-            mapping/badge \
-            mapping/gate \
-            dope/detected_objects \
+            /tempest/mapping/cutie \
+            /tempest/mapping/TommyGun \
+            /tempest/mapping/gman \
+            /tempest/mapping/bootlegger \
+            /tempest/mapping/torpedoBootlegger \
+            /tempest/mapping/torpedoGman \
+            /tempest/mapping/axe \
+            /tempest/mapping/cash \
+            /tempest/mapping/BinBarrel \
+            /tempest/mapping/BinPhone \
+            /tempest/mapping/badge \
+            /tempest/dope/detected_objects \
+            /tempest/depth/pose \
             /tf \
             /tempest/state/electrical
 
@@ -99,7 +105,7 @@ case $1 in
         saveName="../Bags/diagnostics__$date"
         
         #launch diagnostics bagging
-        ros2 bag record -d 3 --include-hidden-topics -o $saveName \
+        ros2 bag record -d 15 --include-hidden-topics -o $saveName \
             /rosout_agg \
             /diagnostics \
             /diagnostics_agg \
@@ -114,7 +120,7 @@ case $1 in
         saveName="../Bags/all__$date"
 
         #launch all bagging
-        ros2 bag record --include-hidden-topics -d 3 -o $saveName -a
+        ros2 bag record --include-hidden-topics -d 15 -o $saveName -a
     ;;
 
     #catch all
