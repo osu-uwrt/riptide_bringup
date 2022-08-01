@@ -38,15 +38,15 @@ case $1 in
         #launch sensor bagging
         ros2 bag record --include-hidden-topics -d 3 -o $saveName \
             /rosout_agg \
-            dvl/twist \
-            dvl_twist \
-            dvl_sonar0 \
-            dvl_sonar1 \
-            dvl_sonar2 \
-            vl_sonar3 \
-            depth/raw \
-            depth/pose \
-            imu/data \
+            /tempest/dvl/twist \
+            /tempest/dvl/status \
+            /tempest/dvl/dvl_sonar0 \
+            /tempest/dvl/dvl_sonar1 \
+            /tempest/dvl/dvl_sonar2 \
+            /tempest/dvl/dvl_sonar3 \
+            /tempest/depth/raw \
+            /tempest/depth/pose \
+            /tempest/imu/data \
             /tf \
             /tempest/state/electrical
 
@@ -58,10 +58,8 @@ case $1 in
         saveName="../Bags/competition__$date"
         ros2 bag record --include-hidden-topics --max-bag-duration 3 -o $saveName \
             /rosout_agg \
-            stereo/left/image_raw/compressed \
-            stereo/left/camera_info \
-            stereo/right/image_raw/compressed \
-            stereo/right/camera_info \
+            odometry/filtered \
+            stereo/left_raw/image_raw \
             /tempest/state/electrical
             dvl/twist \
             dvl_twist \

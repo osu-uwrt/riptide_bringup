@@ -1,7 +1,7 @@
 echo "Monitoring Battery"
 
 
-checkTimout=30 #seconds, thirty plus recommended
+checkTimout=60 #seconds, thirty plus recommended
 criticalVoltage="19.2" #the batteries critical voltage -  as string
 saveFileName="voltageRecord.txt"
 
@@ -14,11 +14,13 @@ do
     #ensure filespace is clear
     rm $saveFileName
 
+    . ~/osu-uwrt/riptide_software/install/setup.bash
+
     #record voltages
     timeout $checkTimout ros2 topic echo /tempest/state/electrical > $saveFileName
 
     #use the python script to check voltages
-    output=`python evaluateVoltages.py $criticalVoltage $saveFileName`
+    output=`python3 evaluateVoltages.py $criticalVoltage $saveFileName`
     
 
     #if battery voltage bellow critical - alert
