@@ -32,7 +32,11 @@ ns_launch_files = [
     os.path.join(
         get_package_share_directory('riptide_mapping2'),
         'launch',
-        'mapping.launch.py')]
+        'mapping.launch.py'),
+    os.path.join(
+        get_package_share_directory('riptide_autonomy2'),
+        'launch',
+        'autonomy.launch.py') ]
 '''
     os.path.join(
         get_package_share_directory('riptide_vision2'),

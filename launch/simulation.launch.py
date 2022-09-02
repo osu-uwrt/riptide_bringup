@@ -18,9 +18,19 @@ ns_launch_files = [
         'launch',
         'controller.launch.py'),
     os.path.join(
-        get_package_share_directory('riptide_teleop2'),
+        get_package_share_directory('riptide_mapping2'),
         'launch',
-        'ps3_teleop.launch.py'),
+        'mapping.launch.py'
+    ),
+    os.path.join(
+        get_package_share_directory('riptide_autonomy2'),
+        'launch',
+        'autonomy.launch.py'
+    )
+    # os.path.join(
+    #     get_package_share_directory('riptide_teleop2'),
+    #     'launch',
+    #     'ps3_teleop.launch.py'),
     # os.path.join(
     #     get_package_share_directory('riptide_localization2'),
     #     'launch',
