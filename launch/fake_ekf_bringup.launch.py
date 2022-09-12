@@ -33,6 +33,10 @@ ns_launch_files = [
         get_package_share_directory('riptide_mapping2'),
         'launch',
         'mapping.launch.py'),
+    os.path.join(
+        get_package_share_directory('riptide_autonomy2'),
+        'launch',
+        'autonomy.launch.py')
     ]
 
 def generate_launch_description():
