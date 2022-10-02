@@ -8,6 +8,16 @@ from launch.actions import DeclareLaunchArgument, GroupAction
 from launch_ros.actions import PushRosNamespace
 from launch.substitutions import LaunchConfiguration as LC
 import os
+import matlab.engine
+
+
+def launchSimulink():
+    path = '~/osu-uwrt/riptide_software/src/riptide_simulink/Models/Simple_3_Model'
+
+    eng = matlab.engine.start_matlab()
+    eng.cd(path, nargout=0)
+    eng.StartSim(nargout=0)
+    eng.quit()
 
 default_robot_name = "tempest"
 
@@ -28,6 +38,7 @@ ns_launch_files = [
     )
 ]
 
+launchSimulink()
 #riptide_ignition = os.path.join(
 #    get_package_share_directory('riptide_ignition2'),
 #    'launch',)
