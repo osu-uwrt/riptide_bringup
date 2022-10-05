@@ -1,9 +1,4 @@
-from distutils.command.config import config
-from signal import pause
-from time import sleep
-from click import launch
-
-from scipy import rand
+import launch
 from launch_ros.actions import Node
 from launch.launch_description_sources import AnyLaunchDescriptionSource
 from launch.actions import IncludeLaunchDescription
@@ -12,7 +7,6 @@ from launch.launch_description import LaunchDescription
 from launch.actions import DeclareLaunchArgument, GroupAction
 from launch_ros.actions import PushRosNamespace
 from launch.substitutions import LaunchConfiguration as LC
-from riptide_SNIB import simulinkControl
 import os
 
 default_robot_name = "tempest"
@@ -34,8 +28,6 @@ ns_launch_files = [
     )
 ]
 
-simulinkControl.launchSimulink()
-
 def generate_launch_description():
     # read the parameter for robot name
     robot_name = LC('robot')
@@ -54,6 +46,7 @@ def generate_launch_description():
                 launch_arguments=[
                     ('namespace', robot_name),
                     ('robot', robot_name),
+                    ('launch_simulink', "False")
                 ]
             )
         )
@@ -61,6 +54,7 @@ def generate_launch_description():
     # create the launch description 
     return LaunchDescription([
         DeclareLaunchArgument('robot', default_value=default_robot_name, description='name of the robot to spawn'),
+        DeclareLaunchArgument('launch_simulink', defualt_value="False", description="wether or not to launch simulink"),
 
         GroupAction(ns_descrips),
     ])
