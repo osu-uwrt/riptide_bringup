@@ -31,7 +31,12 @@ ns_launch_files = [
         get_package_share_directory('riptide_SNIB'),
         "launch",
         "snib.launch.py"
-    )
+    ),
+    os.path.join(
+        get_package_share_directory('riptide_localization2'),
+        'launch',
+        'navigation.launch.py'
+    ),
 ]
 
 simulinkControl.launchSimulink()
