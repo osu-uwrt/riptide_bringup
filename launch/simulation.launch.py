@@ -37,6 +37,11 @@ ns_launch_files = [
         'launch',
         'navigation.launch.py'
     ),
+    os.path.join(
+        get_package_share_directory('uwrt_ros_gz'),
+        "launch",
+        "uwrt_ros_gz.launch.py"
+    ),
 ]
 
 simulinkControl.launchSimulink()
