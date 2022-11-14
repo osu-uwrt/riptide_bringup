@@ -12,7 +12,7 @@ from launch.launch_description import LaunchDescription
 from launch.actions import DeclareLaunchArgument, GroupAction
 from launch_ros.actions import PushRosNamespace
 from launch.substitutions import LaunchConfiguration as LC
-from riptide_SNIB import simulinkControl
+from riptide_SNIB import simulinkControl, gazeboControl
 import os
 
 default_robot_name = "tempest"
@@ -45,6 +45,7 @@ ns_launch_files = [
 ]
 
 simulinkControl.launchSimulink()
+gazeboControl.launchGazebo()
 
 def generate_launch_description():
     # read the parameter for robot name
