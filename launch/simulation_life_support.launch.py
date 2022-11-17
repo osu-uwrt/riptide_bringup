@@ -1,4 +1,9 @@
-import launch
+from distutils.command.config import config
+from signal import pause
+from time import sleep
+from click import launch
+
+from scipy import rand
 from launch_ros.actions import Node
 from launch.launch_description_sources import AnyLaunchDescriptionSource
 from launch.actions import IncludeLaunchDescription
@@ -7,6 +12,7 @@ from launch.launch_description import LaunchDescription
 from launch.actions import DeclareLaunchArgument, GroupAction
 from launch_ros.actions import PushRosNamespace
 from launch.substitutions import LaunchConfiguration as LC
+from riptide_SNIB import simulinkControl, gazeboControl
 import os
 
 default_robot_name = "tempest"
@@ -14,19 +20,19 @@ default_robot_name = "tempest"
 # all of the robot namespaced launch files to start
 ns_launch_files = [
     os.path.join(
-        get_package_share_directory('riptide_controllers2'),
-        'launch',
-        'controller.launch.py'),
-    os.path.join(
-        get_package_share_directory('riptide_mapping2'),
-        'launch',
-        'mapping.launch.py'),
-    os.path.join(
         get_package_share_directory('riptide_SNIB'),
         "launch",
         "snib.launch.py"
-    )
+    ),
+    os.path.join(
+        get_package_share_directory('uwrt_ros_gz'),
+        "launch",
+        "uwrt_ros_gz.launch.py"
+    ),
 ]
+
+simulinkControl.launchSimulink()
+gazeboControl.launchGazebo()
 
 def generate_launch_description():
     # read the parameter for robot name
@@ -46,7 +52,6 @@ def generate_launch_description():
                 launch_arguments=[
                     ('namespace', robot_name),
                     ('robot', robot_name),
-                    ('launch_simulink', "False")
                 ]
             )
         )
@@ -54,7 +59,6 @@ def generate_launch_description():
     # create the launch description 
     return LaunchDescription([
         DeclareLaunchArgument('robot', default_value=default_robot_name, description='name of the robot to spawn'),
-        DeclareLaunchArgument('launch_simulink', defualt_value="False", description="wether or not to launch simulink"),
 
         GroupAction(ns_descrips),
     ])
