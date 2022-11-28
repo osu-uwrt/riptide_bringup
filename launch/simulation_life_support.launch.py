@@ -31,7 +31,7 @@ ns_launch_files = [
     ),
 ]
 
-simulinkControl.launchSimulink()
+os.system("gnome-terminal -- python3 ~/osu-uwrt/riptide_software/src/riptide_SNIB/riptide_SNIB/simulinkControl.py")
 gazeboControl.launchGazebo()
 
 def generate_launch_description():
